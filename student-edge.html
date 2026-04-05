@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Student Edge</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --accent: #c8410a;
+    --muted: #6b6355;
+    --line: #d4cdc0;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 28px 100px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── TOP LABEL ── */
+  .label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 36px;
+  }
+  .label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--accent);
+  }
+
+  /* ── HEADLINE ── */
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.4rem, 7vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--accent);
+    position: relative;
+  }
+  h1 em::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 2px;
+    width: 100%; height: 3px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+
+  /* ── INTRO STORY ── */
+  .story {
+    border-left: 2px solid var(--line);
+    padding-left: 20px;
+    margin: 36px 0;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.75;
+    animation: fadeUp 0.9s 0.15s ease both;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 40px 0;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* ── BODY TEXT ── */
+  .body-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #2a2520;
+    margin-bottom: 24px;
+    animation: fadeUp 1s 0.2s ease both;
+  }
+
+  strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* ── BRUTAL QUOTE ── */
+  .brutal-quote {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 28px 32px;
+    margin: 40px 0;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 1s 0.25s ease both;
+  }
+  .brutal-quote::before {
+    content: '"';
+    position: absolute;
+    top: -20px; left: 16px;
+    font-family: 'Syne', sans-serif;
+    font-size: 120px;
+    font-weight: 800;
+    color: var(--accent);
+    opacity: 0.25;
+    line-height: 1;
+  }
+  .brutal-quote p {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
+    font-weight: 700;
+    line-height: 1.35;
+    position: relative;
+    z-index: 1;
+  }
+  .brutal-quote cite {
+    display: block;
+    margin-top: 14px;
+    font-size: 0.8rem;
+    font-style: normal;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title span {
+    color: var(--accent);
+  }
+
+  /* ── TEASER LIST ── */
+  .teaser-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 8px 0 36px;
+    animation: fadeUp 1s 0.3s ease both;
+  }
+  .teaser-list li {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+    transition: background 0.2s;
+  }
+  .teaser-list li:first-child {
+    border-top: 1px solid var(--line);
+  }
+  .teaser-list li .num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--accent);
+    padding-top: 3px;
+  }
+  .teaser-list li .content strong {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .teaser-list li .content p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .teaser-list li .lock {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.6;
+  }
+
+  /* ── STATS STRIP ── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin: 40px 0;
+    animation: fadeUp 1s 0.35s ease both;
+  }
+  .stat {
+    background: var(--paper);
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .stat .val {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--accent);
+    display: block;
+  }
+  .stat .desc {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    line-height: 1.4;
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* ── HARD STOP / CTA ── */
+  .cta-block {
+    background: var(--accent);
+    color: #fff;
+    padding: 36px 32px;
+    margin-top: 48px;
+    animation: fadeUp 1s 0.45s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-block::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+  }
+  .cta-block h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .cta-block p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    opacity: 0.9;
+    margin-bottom: 8px;
+  }
+  .cta-steps {
+    list-style: none;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .cta-steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+  .cta-steps li .arrow {
+    font-size: 1rem;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .footer .brand {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 480px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stats .stat:last-child { grid-column: span 2; }
+    .brutal-quote { padding: 22px 20px; }
+    .cta-block { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<div class="page">
+
+  <div class="label">For FUOYE Students Only</div>
+
+  <h1>Your course won't<br>make you <em>rich.</em><br>This might.</h1>
+
+  <!-- STORY -->
+  <div class="story">
+    His name doesn't matter. He was a 300-level Engineering student at a Nigerian federal university —
+    brilliant, hardworking, showed up to every lecture. By final year, his CGPA was a 4.2.
+    He graduated, wore the gown, took the pictures. His mum cried. Then he spent the next
+    14 months sending CVs into silence. No job. No income. No plan B.
+    He was not lazy. He was just never taught what actually works.
+  </div>
+
+  <p class="body-text">
+    That story is not rare. <strong>It is the default.</strong> The Nigerian university system graduates
+    over 600,000 students every year — and the World Bank puts youth unemployment above 53%.
+    That means most people sitting in your lecture hall right now will finish school
+    with a degree and zero leverage.
+  </p>
+
+  <p class="body-text">
+    Not because they are not smart. Because nobody showed them the other side of campus life —
+    the part that actually builds income, status, and real-world relevance.
+    <strong>That is the gap this community exists to close.</strong>
+  </p>
+
+  <!-- STATS -->
+  <div class="stats" role="region" aria-label="Key Statistics">
+    <div class="stat">
+      <span class="val">53%</span>
+      <span class="desc">Youth unemployment rate in Nigeria (World Bank)</span>
+    </div>
+    <div class="stat">
+      <span class="val">600k+</span>
+      <span class="desc">Students graduated from Nigerian universities yearly</span>
+    </div>
+    <div class="stat">
+      <span class="val">₦0</span>
+      <span class="desc">Income most students leave campus with</span>
+    </div>
+  </div>
+
+  <div class="divider">What we actually cover</div>
+
+  <p class="body-text">
+    This is not a motivational group. There are enough of those. This is a community where
+    FUOYE students learn practical, income-building, life-upgrading things —
+    starting from wherever you are, even if that is 100 level with ₦500 in your account.
+  </p>
+
+  <p class="section-title"><span>01</span> Here's a taste of what's inside</p>
+
+  <ul class="teaser-list">
+    <li>
+      <span class="num">01</span>
+      <div class="content">
+        <strong>How to make your first ₦50k as a student — no capital needed</strong>
+        <p>Graphic design, video editing, copywriting, social media management.
+          Real skills, real clients, real naira. We'll show you the exact path from zero to your first paid gig.</p>
+        <span class="lock">Full breakdown → inside the group</span>
+      </div>
+    </li>
+    <li>
+      <span class="num">02</span>
+      <div class="content">
+        <strong>Campus hustle map — opportunities hiding right on your school premises</strong>
+        <p>Print jobs, course materials, gadget reselling, tutoring, event coverage.
+          Students are sitting on income daily without knowing it. We map it all out.</p>
+        <span class="lock">Full breakdown → inside the group</span>
+      </div>
+    </li>
+    <li>
+      <span class="num">03</span>
+      <div class="content">
+        <strong>Academic survival without killing yourself</strong>
+        <p>Past questions. Smart reading habits. CGPA protection strategies.
+          How to pass well and still have time for your hustle. Because it's not either/or.</p>
+        <span class="lock">Full breakdown → inside the group</span>
+      </div>
+    </li>
+    <li>
+      <span class="num">04</span>
+      <div class="content">
+        <strong>How to build connections that actually open doors</strong>
+        <p>Your classmates are your first network. Most students waste 4 years
+          ignoring this. We'll teach you how to leverage your campus circle for opportunities,
+          referrals, and business.</p>
+        <span class="lock">Full breakdown → inside the group</span>
+      </div>
+    </li>
+    <li>
+      <span class="num">05</span>
+      <div class="content">
+        <strong>How to carry yourself like someone going somewhere</strong>
+        <p>Confidence, communication, digital presence. The soft things that make hard doors open.
+          How to stand out before you even graduate.</p>
+        <span class="lock">Full breakdown → inside the group</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- BRUTAL QUOTE -->
+  <div class="brutal-quote">
+    <p>Everybody is broke because everybody is doing the same thing. The students winning right now are not smarter — they just got access to different information earlier.</p>
+    <cite>— The difference is information</cite>
+  </div>
+
+  <p class="body-text">
+    One student. Graphics design. Started in 200 level posting flyers for campus events.
+    By final year, she was making <strong>₦500,000+ monthly</strong> on referrals alone —
+    without leaving school. She did not have more time than you.
+    She had a skill, a phone, and consistency.
+  </p>
+
+  <p class="body-text">
+    Another. Video editing. Started creating content just for fun in 200 level.
+    By 400 level, four clients at ₦50k–₦100k each. Plus a ₦80k social media management job.
+    Still a student. Still graduating.
+  </p>
+
+  <p class="body-text">
+    <strong>This is not theoretical. This is happening now.</strong>
+    The only question is whether you'll be in the room where it's being discussed.
+  </p>
+
+  <!-- HARD STOP / CTA -->
+  <div class="cta-block">
+    <h2>The rest of this is not public.</h2>
+    <p>
+      The full resources, skill guides, income blueprints, past questions vault,
+      and community access are inside the WhatsApp group.
+      Not here. Not on any flyer. Only for people who take the next step.
+    </p>
+    <ul class="cta-steps">
+      <li><span class="arrow">→</span> Save this number to your contacts</li>
+      <li><span class="arrow">→</span> Send a WhatsApp DM with the word <strong>"EDGE"</strong></li>
+      <li><span class="arrow">→</span> You'll get the group link immediately</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <span class="brand">The Student Edge</span>
+    <span>For FUOYE students. Built by one of us.</span>
+  </div>
+
+</div>
+</body>
+</html>
