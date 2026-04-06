@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Student Edge — Build Skills. Make Money. Stay Winning.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:    #f2ece3;
+      --cream-dk: #e8dfd3;
+      --orange:   #c8501a;
+      --orange-lt:#e06030;
+      --ink:      #1a1714;
+      --ink-mid:  #3d3530;
+      --ink-soft: #6b5f56;
+      --rule:     rgba(26,23,20,.12);
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'DM Sans', sans-serif;
+      --mono:  'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── UTILITY ──────────────────────────────────────────── */
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .container--wide { max-width: 1040px; }
+    .divider {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 0;
+    }
+    .tag {
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    /* ─── NAV ──────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(242,236,227,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px; padding: 0 24px;
+      max-width: 1040px; margin: 0 auto;
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--ink);
+      font-weight: 700;
+    }
+    .nav-logo span { color: var(--orange); }
+    .nav-cta {
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      border: 1px solid var(--orange);
+      padding: 7px 16px;
+      border-radius: 2px;
+      transition: background .2s, color .2s;
+    }
+    .nav-cta:hover { background: var(--orange); color: var(--cream); }
+
+    /* ─── HERO ─────────────────────────────────────────────── */
+    .hero {
+      padding: 96px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(200,80,26,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '';
+      display: block; width: 28px; height: 1px;
+      background: var(--orange);
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 7vw, 4.2rem);
+      line-height: 1.12;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      max-width: 700px; margin: 0 auto 28px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--orange);
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      max-width: 520px;
+      margin: 0 auto 44px;
+      font-weight: 400;
+    }
+    .hero-actions {
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--orange);
+      color: var(--cream);
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: 2px;
+      border: none; cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .btn-primary:hover { background: var(--orange-lt); transform: translateY(-1px); }
+    .btn-ghost {
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--ink-soft);
+      transition: color .2s, border-color .2s;
+    }
+    .btn-ghost:hover { color: var(--orange); border-color: var(--orange); }
+
+    .hero-stats {
+      display: flex; align-items: center; justify-content: center;
+      gap: 40px; flex-wrap: wrap;
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--rule);
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 2rem;
+      color: var(--orange);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-top: 4px;
+    }
+
+    /* ─── SECTION HEADER ───────────────────────────────────── */
+    .section-header {
+      padding: 80px 0 48px;
+    }
+    .section-num {
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .15em;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1.18;
+      letter-spacing: -.02em;
+      color: var(--ink);
+    }
+    .section-intro {
+      font-size: 1rem;
+      color: var(--ink-soft);
+      margin-top: 16px;
+      max-width: 560px;
+    }
+
+    /* ─── MODULES (numbered cards) ─────────────────────────── */
+    .modules { padding-bottom: 80px; }
+
+    .module-item {
+      padding: 40px 0;
+      border-top: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 0 28px;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .module-item.visible { opacity: 1; transform: translateY(0); }
+
+    .module-num {
+      font-family: var(--mono);
+      font-size: .78rem;
+      color: var(--orange);
+      letter-spacing: .08em;
+      padding-top: 4px;
+    }
+    .module-body h3 {
+      font-family: var(--serif);
+      font-size: 1.28rem;
+      line-height: 1.28;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .module-body p {
+      font-size: .95rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .module-link {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      display: inline-flex; align-items: center; gap: 6px;
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s;
+    }
+    .module-link:hover { border-color: var(--orange); }
+    .module-link::after { content: '→'; }
+
+    /* ─── INSIGHTS GRID ────────────────────────────────────── */
+    .insights-section { padding: 80px 0; }
+    .insights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .insight-card {
+      background: var(--cream);
+      padding: 32px 28px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .insight-card.visible { opacity: 1; transform: translateY(0); }
+    .insight-icon {
+      font-size: 1.4rem;
+      margin-bottom: 14px;
+    }
+    .insight-card h4 {
+      font-family: var(--serif);
+      font-size: 1.08rem;
+      line-height: 1.3;
+      margin-bottom: 10px;
+      color: var(--ink);
+    }
+    .insight-card p {
+      font-size: .88rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+    .insight-card .insight-tag {
+      margin-bottom: 10px;
+    }
+
+    /* ─── QUOTE BAND ───────────────────────────────────────── */
+    .quote-band {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 72px 24px;
+      text-align: center;
+    }
+    .quote-band blockquote {
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 3.5vw, 2rem);
+      line-height: 1.4;
+      max-width: 620px; margin: 0 auto;
+      letter-spacing: -.01em;
+    }
+    .quote-band blockquote em { color: var(--orange); font-style: normal; }
+    .quote-attr {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(242,236,227,.45);
+      margin-top: 24px;
+    }
+
+    /* ─── DEEP DIVES ───────────────────────────────────────── */
+    .deep-section { padding: 80px 0; }
+    .deep-item {
+      border-top: 1px solid var(--rule);
+      padding: 48px 0;
+      opacity: 0;
+      transform: translateX(-16px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .deep-item.visible { opacity: 1; transform: translateX(0); }
+    .deep-label {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 14px;
+    }
+    .deep-item h3 {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      line-height: 1.22;
+      color: var(--ink);
+      margin-bottom: 16px;
+      max-width: 560px;
+    }
+    .deep-item p {
+      font-size: .95rem;
+      color: var(--ink-soft);
+      line-height: 1.75;
+      max-width: 620px;
+      margin-bottom: 20px;
+    }
+    .tips-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 10px;
+      max-width: 600px;
+    }
+    .tips-list li {
+      display: flex; gap: 14px; align-items: flex-start;
+      font-size: .92rem; color: var(--ink-mid); line-height: 1.6;
+    }
+    .tips-list li::before {
+      content: '—';
+      color: var(--orange);
+      font-family: var(--mono);
+      font-size: .8rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ─── CTA SECTION ──────────────────────────────────────── */
+    .cta-section {
+      padding: 96px 24px;
+      text-align: center;
+      background: var(--cream-dk);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .cta-section h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 5vw, 3rem);
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      max-width: 560px; margin: 0 auto 20px;
+    }
+    .cta-section h2 span { color: var(--orange); }
+    .cta-section p {
+      font-size: 1rem;
+      color: var(--ink-soft);
+      max-width: 480px; margin: 0 auto 36px;
+    }
+    .cta-note {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-top: 16px;
+    }
+
+    /* ─── FOOTER ───────────────────────────────────────────── */
+    footer {
+      padding: 40px 24px;
+      border-top: 1px solid var(--rule);
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+      max-width: 1040px; margin: 0 auto;
+    }
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--ink);
+    }
+    .footer-logo span { color: var(--orange); }
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    /* ─── SCROLL ANIMATIONS ────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero > * {
+      animation: fadeUp .7s ease both;
+    }
+    .hero .hero-eyebrow  { animation-delay: .05s; }
+    .hero h1             { animation-delay: .15s; }
+    .hero .hero-sub      { animation-delay: .25s; }
+    .hero .hero-actions  { animation-delay: .35s; }
+    .hero .hero-stats    { animation-delay: .45s; }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .module-item { grid-template-columns: 44px 1fr; gap: 0 16px; }
+      .hero-stats { gap: 28px; }
+      .insights-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">The Student <span>Edge</span></a>
+      <a href="#join" class="nav-cta">Join the Community</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">
+        <span class="tag">For students who refuse to be average</span>
+      </div>
+      <h1>Skills. Money. <em>Strategy.</em> — Everything they didn't teach you in class.</h1>
+      <p class="hero-sub">A no-fluff guide to building real income, staying academically alive, and positioning yourself before graduation.</p>
+      <div class="hero-actions">
+        <a href="#content" class="btn-primary">Explore the Guide</a>
+        <a href="#join" class="btn-ghost">Join The Community</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">₦50k</div>
+          <div class="stat-label">First Target</div>
+        </div>
+        <div class="stat-item" style="padding: 0 20px; border-left: 1px solid var(--rule); border-right: 1px solid var(--rule);">
+          <div class="stat-num">5</div>
+          <div class="stat-label">Income Paths</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">0</div>
+          <div class="stat-label">Capital Needed to Start</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INSIDE -->
+  <section id="content">
+    <hr class="divider" />
+    <div class="container">
+      <div class="section-header">
+        <div class="section-num">01 — What's Inside</div>
+        <h2 class="section-title">Here's a taste of what's inside</h2>
+        <p class="section-intro">Real strategies, real examples, written for Nigerian students who want to move differently — starting today.</p>
+      </div>
+    </div>
+    <div class="container modules">
+
+      <!-- Module 01 -->
+      <div class="module-item">
+        <div class="module-num">01</div>
+        <div class="module-body">
+          <h3>How to make your first ₦50k as a student — no capital needed</h3>
+          <p>Graphic design, video editing, copywriting, social media management. Real skills, real clients, real naira. We'll show you the exact path from zero to your first paid gig — including where to find clients who will actually pay without ghost-running you.</p>
+          <a href="#skills" class="module-link">Full breakdown inside the group</a>
+        </div>
+      </div>
+
+      <!-- Module 02 -->
+      <div class="module-item">
+        <div class="module-num">02</div>
+        <div class="module-body">
+          <h3>Campus hustle map — opportunities hiding right on your school premises</h3>
+          <p>Print jobs, course materials, gadget reselling, tutoring, event coverage. Students are sitting on income daily without knowing it. We map it all out with estimated earnings, startup effort, and how to run each one without stressing your academics.</p>
+          <a href="#campus" class="module-link">Full breakdown inside the group</a>
+        </div>
+      </div>
+
+      <!-- Module 03 -->
+      <div class="module-item">
+        <div class="module-num">03</div>
+        <div class="module-body">
+          <h3>Academic survival without killing yourself</h3>
+          <p>Past questions. Smart reading habits. CGPA protection strategies. How to pass well and still have time for your hustle. Because it's not either/or. We'll show you how top students actually manage their time — it's not what you think.</p>
+          <a href="#academic" class="module-link">Full breakdown inside the group</a>
+        </div>
+      </div>
+
+      <!-- Module 04 -->
+      <div class="module-item">
+        <div class="module-num">04</div>
+        <div class="module-body">
+          <h3>How to build connections that actually open doors</h3>
+          <p>Your classmates are your first network. Most students waste 4 years ignoring this. We'll teach you how to leverage your campus circle for opportunities, referrals, and business — without being the person who only shows up when they want something.</p>
+          <a href="#network" class="module-link">Full breakdown inside the group</a>
+        </div>
+      </div>
+
+      <!-- Module 05 -->
+      <div class="module-item">
+        <div class="module-num">05</div>
+        <div class="module-body">
+          <h3>Digital skills that pay in dollars — even from a Nigerian campus</h3>
+          <p>Freelancing internationally isn't reserved for people in Lagos or Abuja. We break down exactly how students in Ekiti and similar locations have landed foreign clients using Fiverr, Upwork, direct outreach — and what skills are easiest to monetize remotely with a basic smartphone and WiFi.</p>
+          <a href="#digital" class="module-link">Full breakdown inside the group</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INSIGHTS GRID -->
+  <section class="insights-section" id="skills">
+    <hr class="divider" />
+    <div class="container container--wide" style="padding-top: 80px; padding-bottom: 40px;">
+      <div class="section-num">02 — Quick Wins</div>
+      <h2 class="section-title">Things you can start this week</h2>
+    </div>
+    <div class="container container--wide">
+      <div class="insights-grid">
+
+        <div class="insight-card">
+          <div class="insight-tag tag">Design</div>
+          <div class="insight-icon">🎨</div>
+          <h4>Canva is not a cheat code — it's a starting gun</h4>
+          <p>Most students learn Canva then do nothing with it. Charge ₦2,000–₦5,000 per flyer for student fellowships, departmental associations, or small businesses near campus. One client a week = ₦8,000–₦20,000/month from your phone.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-tag tag">Reselling</div>
+          <div class="insight-icon">📱</div>
+          <h4>Gadget reselling is the most underrated campus business</h4>
+          <p>Earphones, chargers, cables, phone cases. Buy in bulk from Okafor Market or Jiji, sell on WhatsApp status. Students break these things weekly. ₦500 margin × 20 items = ₦10,000 moved from your hostel room with zero shop rent.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-tag tag">Content</div>
+          <div class="insight-icon">📹</div>
+          <h4>Faceless YouTube is real — but slow. Here's what to expect</h4>
+          <p>Your first 3 videos will get 0–50 views. That's normal. The students making ₦50k/month from it started 9–18 months ago. Pick a niche (Nigerian student tips, study hacks, budget cooking), post consistently, and monetize through AdSense + sponsorships once you hit 1,000 subs.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-tag tag">Freelancing</div>
+          <div class="insight-icon">✍️</div>
+          <h4>Copywriting: the skill with the fastest return on campus</h4>
+          <p>Every business needs words — product descriptions, captions, WhatsApp broadcasts. You don't need a degree. Study 3 books (Ogilvy on Advertising, Ca$hvertising, This is Marketing), practice on real Nigerian brands, and charge ₦5,000–₦15,000 per project within 60 days.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-tag tag">Academic</div>
+          <div class="insight-icon">📚</div>
+          <h4>The 3-day rule before every exam</h4>
+          <p>Don't start studying the night before. Your brain needs at least 3 short sessions to consolidate a topic into long-term memory. The students who pass big aren't smarter — they started earlier and used past questions as their primary revision tool, not textbooks.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-tag tag">Networking</div>
+          <div class="insight-icon">🤝</div>
+          <h4>Your 100-person network is more valuable than 10,000 followers</h4>
+          <p>Focus on building 100 deep, genuine relationships before graduation — classmates, lecturers, seniors, business owners near campus. These are the people who will refer you for jobs, give you contracts, and vouch for your character. Social media numbers mean nothing without offline trust.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE BAND -->
+  <section class="quote-band">
+    <blockquote>
+      "Most graduates spend 4 years preparing to get a job that <em>may not exist</em> by the time they finish. The smart ones spend that time building skills, income, and networks that work whether they get employed or not."
+    </blockquote>
+    <div class="quote-attr">— The Student Edge Philosophy</div>
+  </section>
+
+  <!-- DEEP DIVES -->
+  <section class="deep-section" id="campus">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-num">03 — Deep Dives</div>
+        <h2 class="section-title">The breakdown nobody gives you</h2>
+        <p class="section-intro">Actionable playbooks on the topics that actually matter in your student years.</p>
+      </div>
+
+      <!-- Deep Dive 1 -->
+      <div class="deep-item" id="campus">
+        <div class="deep-label">Campus Hustle</div>
+        <h3>The real campus hustle map: what earns, what doesn't</h3>
+        <p>Not all campus businesses are equal. Here's an honest breakdown of what actually makes consistent money on a Nigerian university campus — tested, not theoretical.</p>
+        <ul class="tips-list">
+          <li><strong>Print/photocopy runs:</strong> Low margin but consistent. Partner with a business centre, collect WhatsApp orders, mark up 30–50%. Scales with volume, not effort.</li>
+          <li><strong>Course material packs:</strong> The winner. Compile past questions + summarised notes for your department. Charge ₦500–₦2,000 per PDF. One file, infinite resales. Students ask every semester.</li>
+          <li><strong>Gadget accessories:</strong> Fast turnover, low capital. Earphones from ₦800 → sell for ₦1,500. Focus on items with a clear reorder pattern — students will always buy chargers and cables.</li>
+          <li><strong>Tutoring:</strong> High value, referral-driven. Start with your strongest subject. One student tells two others. Price at ₦2,000–₦5,000/session. GST courses, calculus, and anatomy are hot year-round.</li>
+          <li><strong>Event photography:</strong> ₦5,000–₦25,000 per event. Departmental weeks, birthdays, convos. You need: a decent phone, SnapSeed, and the confidence to say yes first, then improve.</li>
+        </ul>
+      </div>
+
+      <!-- Deep Dive 2 -->
+      <div class="deep-item" id="academic">
+        <div class="deep-label">Academics</div>
+        <h3>How to pass well without reading everything</h3>
+        <p>The brutal truth: most lecturers test 20% of the course content 80% of the time. Find the 20% and you're already winning. Here's the exact system:</p>
+        <ul class="tips-list">
+          <li><strong>Get 5 years of past questions first.</strong> Before touching a textbook, scan what has been repeated. Those are your core topics. Build everything else around them.</li>
+          <li><strong>Read in active recall mode.</strong> Don't highlight. Cover what you read and try to reproduce it. If you can't, re-read. If you can, move. This doubles retention compared to passive reading.</li>
+          <li><strong>Find your peak hours and protect them.</strong> Most people do their best thinking between 6–10am. That's 4 hours before the campus chaos starts. Use it. One focused hour beats three distracted ones.</li>
+          <li><strong>Form a 3-person study group — not 10.</strong> Large groups become social events. Three people: you review, they question, you defend. That's where real learning happens.</li>
+          <li><strong>Don't neglect CA scores.</strong> In most Nigerian universities, continuous assessment is 30–40% of your final grade. Quiet points. Students who miss CA work twice as hard in exams for the same result.</li>
+        </ul>
+      </div>
+
+      <!-- Deep Dive 3 -->
+      <div class="deep-item" id="digital">
+        <div class="deep-label">Digital Income</div>
+        <h3>Earning in dollars from a campus hostel — the real path</h3>
+        <p>It's possible. It's not easy. And it doesn't happen in 2 weeks. Here's what actually works for Nigerian students with limited equipment and intermittent internet:</p>
+        <ul class="tips-list">
+          <li><strong>Start with a skill that has low tech requirements.</strong> Copywriting, social media management, and basic graphic design can be done on a mid-range Android phone with mobile data. Don't wait for a laptop.</li>
+          <li><strong>Fiverr is slow, direct outreach is faster.</strong> Build a simple portfolio, DM small foreign businesses on Instagram or LinkedIn, explain what you can do, and offer a free sample. One client who pays $50 is worth 50 ₦1,000 gigs locally.</li>
+          <li><strong>Sort your payment method before you need it.</strong> Grey, Chipper Cash, or a verified Payoneer account. Clients won't wait while you figure out how to receive money. This is the part most beginners skip and regret.</li>
+          <li><strong>Pick a niche within your skill.</strong> Not "graphic designer" — "social media graphics for fitness coaches." Specificity makes you memorable and easier to refer. The riches are genuinely in the niches here.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="join">
+    <div class="container">
+      <div class="section-num" style="margin-bottom: 20px;">04 — Join Us</div>
+      <h2>Ready to stop waiting and <span>start earning?</span></h2>
+      <p>Join The Student Edge community — where FUOYE students share real strategies, real results, and support each other's hustle. Free to join. Zero fluff.</p>
+      <a href="https://wa.me/your-number" class="btn-primary">Send a DM to Join</a>
+      <div class="cta-note">WhatsApp community · Free to join · No spam</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">The Student <span>Edge</span></div>
+      <div class="footer-copy">© 2025 · Built for students who move different</div>
+    </div>
+  </footer>
+
+  <!-- SCROLL ANIMATIONS JS -->
+  <script>
+    const animateTargets = document.querySelectorAll('.module-item, .insight-card, .deep-item');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    animateTargets.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
